@@ -27,7 +27,7 @@ public class AssociadoService extends ServiceBase {
 			if (repository.existsByCpf(request.getCpf()))
 				throw new DomainException("Associado já cadastrado!");
 		
-			verificarStatusPorCpfAssociado(request.getCpf());
+			validarCpfAssociado(request.getCpf());
 			repository.save(factory.create(request));
 		} catch (IntegracaoException e) {
 			throw new IntegracaoException(e.getMessage());
@@ -37,7 +37,7 @@ public class AssociadoService extends ServiceBase {
 
 	}
 
-	public void verificarStatusPorCpfAssociado(String cpf) {
+	public void validarCpfAssociado(String cpf) {
 		String status = "";
 		try {
 			status = restTemplate.getForObject(configBean.getUrlValidarCpf(cpf), String.class);

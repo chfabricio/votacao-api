@@ -35,7 +35,7 @@ public class VotoService {
 	private void validarDados(VotoVO request) {
 
 		Associado associado = associadoService.obterAssociado(request.getAssociadoID());
-		associadoService.verificarStatusPorCpfAssociado(associado.getCpf());
+		associadoService.validarCpfAssociado(associado.getCpf());
 
 		if (!aberturaRepository.existsByPauta(new Pauta(request.getPautaID()))) {
 			throw new DomainException("Pauta não cadastrada!");
