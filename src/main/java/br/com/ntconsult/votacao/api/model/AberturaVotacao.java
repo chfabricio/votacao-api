@@ -44,9 +44,9 @@ public class AberturaVotacao implements Serializable {
 		this.pauta = pauta;
 	}
 
-	public boolean isEncerrada() {
+	public boolean isEncerrada(Integer tempoMaximo) {
 		long segundos = ChronoUnit.SECONDS.between(inicio, LocalDateTime.now());
-		return (segundos > 300);
+		return (segundos > tempoMaximo);
 	}
 
 	public void encerrar() {

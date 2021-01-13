@@ -3,11 +3,15 @@ package br.com.ntconsult.votacao.api.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import br.com.ntconsult.votacao.api.kafka.KafkaProducer;
 import br.com.ntconsult.votacao.api.model.AberturaVotacao;
@@ -28,6 +32,10 @@ public class NotificaoService {
 
 	private ObjectMapper mapper = new ObjectMapper();
 
+	private @Value("${votacao.fecha-em-segundos}") Integer tempoMaximo;
+
+	private Logger log = LogManager.getLogger(getClass());
+
 	@Scheduled(fixedRate = 10000)
 	public void notificarFimVotacao() {
 
@@ -35,9 +43,12 @@ public class NotificaoService {
 		ResultadoVO resultadoVO = new ResultadoVO();
 
 		votacoes.forEach(votacao -> {
-			if (votacao.isEncerrada()) {
+			log.info("verificando se votação foi encerrada.");
+			if (votacao.isEncerrada(tempoMaximo)) {
 				votacaoService.encerrar(votacao);
+				log.info("Votação encerrada.");
 				notificar(resultadoVO, votacao);
+				log.info("O resultado foi enviado para o kafka.");
 			}
 
 		});

@@ -1,6 +1,7 @@
 package br.com.ntconsult.votacao.api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import br.com.ntconsult.votacao.api.factory.VotoFactory;
@@ -26,6 +27,8 @@ public class VotoService {
 
 	@Autowired
 	private AssociadoService associadoService;
+	
+	private @Value("${votacao.fecha-em-segundos}") Integer tempoMaximo;
 
 	public void criar(VotoVO request) {
 		validarDados(request);
@@ -51,7 +54,7 @@ public class VotoService {
 
 	private boolean isEncerrada(Long pautaID) {
 		AberturaVotacao abertura = aberturaRepository.findByPauta(new Pauta(pautaID));
-		return abertura.isEncerrada();
+		return abertura.isEncerrada(tempoMaximo);
 	}
 
 	private boolean associadoJaVotou(Long associadoID, Long pautaID) {

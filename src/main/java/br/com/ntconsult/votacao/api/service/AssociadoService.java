@@ -55,6 +55,8 @@ public class AssociadoService extends ServiceBase {
 	}
 
 	public Associado obterAssociado(Long associadoID) {
+		if (!repository.findById(associadoID).isPresent())
+			throw new DomainException("Associado não cadastrado!");
 		return repository.findById(associadoID).get();
 	}
 
