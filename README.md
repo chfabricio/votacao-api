@@ -17,7 +17,7 @@
 3. Implementado o versionamento das API's
 
 ## Logs
-Coloquei Log somente nessa classe só para mostrar
+Coloquei Log somente nessa classe só para demonstração 
 NotificaoService.java 
 
 ## APIs criadas
