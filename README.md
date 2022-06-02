@@ -1,4 +1,5 @@
 # votacao-api
+* Solução back-end para gerenciar sessões de votação.
 
 * Pré-requisto 
 Banco de dados [Postgres 12]
