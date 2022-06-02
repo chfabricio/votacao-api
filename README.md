@@ -2,8 +2,8 @@
 * Solução back-end para gerenciar sessões de votação.
 
 * Pré-requisto 
-Banco de dados [Postgres 12]
-Kafka 2.6.4
+# Postgres 12
+# Kafka 2.6.4
 
 ## Foi implementado os itens
 1. Cadastro de pauta
