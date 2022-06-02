@@ -19,3 +19,9 @@
 ## Logs
 Coloquei Log somente nessa classe só para mostrar
 NotificaoService.java 
+
+## APIs criadas
+/api/1.0/abertura
+/api/1.0/associado
+/api/1.0/pauta
+/api/1.0/voto
